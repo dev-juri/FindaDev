@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "901446963385",
+    "firebase_url": "https://findadev-46838.firebaseio.com",
+    "project_id": "findadev-46838",
+    "storage_bucket": "findadev-46838.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:901446963385:android:9caadee6814882c088cb68",
+        "android_client_info": {
+          "package_name": "com.oluwafemi.findadev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "901446963385-7i6159snblp5tv002pi2g5f2ujiid8nk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdxp6KLn-bip7QeQeDVCpEDlAFiinyjNE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "901446963385-7i6159snblp5tv002pi2g5f2ujiid8nk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
