@@ -7,4 +7,9 @@
         <item name="colorAccent">@color/primaryLightColor</item>
     </style>
 
+    <style name="BigText" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textSize">28sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>
