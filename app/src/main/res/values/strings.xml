@@ -10,4 +10,6 @@
     <string name="tech_stack">Select your stack</string>
     <string name="img_desc">Just a placeholder for picture</string>
     <string name="job_type">Select Job type you\'re interested in</string>
+    <string name="connect_with_dev">Connect with Dev</string>
+    <string name="view_portfolio">View Portfolio</string>
 </resources>
