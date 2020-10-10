@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.oluwafemi.findadev.R
@@ -14,6 +16,11 @@ class DetailsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        (activity as AppCompatActivity).supportActionBar?.apply{
+            title = getString(R.string.dev_details)
+            setDisplayHomeAsUpEnabled(true)
+        }
+
     }
 
     override fun onCreateView(
@@ -22,6 +29,8 @@ class DetailsFragment : Fragment() {
     ): View? {
         val binding: FragmentDetailsBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_details, container, false)
+
+
         return binding.root
     }
 

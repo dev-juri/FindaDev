@@ -12,4 +12,7 @@
     <string name="job_type">Select Job type you\'re interested in</string>
     <string name="connect_with_dev">Connect with Dev</string>
     <string name="view_portfolio">View Portfolio</string>
+    <string name="dev_details">Dev Details</string>
+    <string name="dev_reg">Register</string>
+    <string name="meet_dev">Registered developers</string>
 </resources>
