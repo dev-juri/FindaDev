@@ -8,5 +8,6 @@
     <string name="email_address">Email Address</string>
     <string name="portfolio_link">Link to portfolio</string>
     <string name="tech_stack">Select your stack</string>
+    <string name="img_desc">Just a placeholder for picture</string>
     <string name="job_type">Select Job type you\'re interested in</string>
 </resources>
