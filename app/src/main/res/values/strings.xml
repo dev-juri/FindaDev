@@ -15,4 +15,5 @@
     <string name="dev_details">Dev Details</string>
     <string name="dev_reg">Register</string>
     <string name="meet_dev">Registered developers</string>
+    <string name="validation_msg">Error validating your input, please verify</string>
 </resources>
