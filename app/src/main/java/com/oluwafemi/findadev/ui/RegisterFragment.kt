@@ -37,11 +37,9 @@ class RegisterFragment : Fragment() {
     ): View? {
         binding =
             DataBindingUtil.inflate(layoutInflater, R.layout.fragment_register, container, false)
-        val fullName = binding.fullName.editText?.text?.trim().toString()
-        val emailAddress = binding.emailAddress.editText?.text?.trim().toString()
-        val portfolioUrl = binding.linkToPortfolio.editText?.text?.trim().toString()
-        val devStack = binding.selectStack.selectedItem
-        val devInterest = binding.jobType.selectedItem
+        val fullName = binding.fullName.editText
+        val emailAddress = binding.emailAddress.editText
+        val portfolioUrl = binding.linkToPortfolio.editText
 
         val stackAdapter = ArrayAdapter(this.requireContext(), R.layout.spinner_list, techStacks)
         stackAdapter.setDropDownViewResource(R.layout.spinner_list)
@@ -53,15 +51,27 @@ class RegisterFragment : Fragment() {
 
         watchFields()
         binding.registerBtn.setOnClickListener {
-            if (fullName.isEmpty() || emailAddress.isEmpty() || portfolioUrl.isEmpty() ||
-                !Patterns.EMAIL_ADDRESS.matcher(binding.emailAddress.editText?.text.toString())
-                    .matches() ||
-                Patterns.WEB_URL.matcher(binding.linkToPortfolio.editText?.text.toString())
-                    .matches()
+            val fullNameText = fullName?.text?.trim().toString()
+            val emailAddressText = emailAddress?.text?.trim().toString()
+            val urlLink = portfolioUrl?.text?.trim().toString()
+            val devStack = binding.selectStack.selectedItem
+            val devInterest = binding.jobType.selectedItem
+
+            if (fullNameText.isEmpty() || emailAddressText.isEmpty() || urlLink.isEmpty() ||
+                !Patterns.EMAIL_ADDRESS.matcher(emailAddressText).matches() ||
+                !Patterns.WEB_URL.matcher(urlLink).matches()
             ) {
-                Snackbar.make(binding.registerBtn, getString(R.string.validation_msg), Snackbar.LENGTH_LONG).show()
+                Snackbar.make(
+                    binding.registerBtn,
+                    getString(R.string.validation_msg),
+                    Snackbar.LENGTH_LONG
+                ).show()
             } else {
-                Log.i("REG_INFO", "Dear $fullName with email $emailAddress and url $portfolioUrl")
+                Log.i(
+                    "REG_INFO",
+                    "Dear ${fullName?.text.toString()} with email ${emailAddress?.text.toString()} " +
+                            "and url ${portfolioUrl?.text.toString()}"
+                )
             }
         }
 
