@@ -54,8 +54,8 @@ class RegisterFragment : Fragment() {
             val fullNameText = fullName?.text?.trim().toString()
             val emailAddressText = emailAddress?.text?.trim().toString()
             val urlLink = portfolioUrl?.text?.trim().toString()
-            val devStack = binding.selectStack.selectedItem
-            val devInterest = binding.jobType.selectedItem
+            val devStack = binding.selectStack.selectedItem.toString()
+            val devInterest = binding.jobType.selectedItem.toString()
 
             if (fullNameText.isEmpty() || emailAddressText.isEmpty() || urlLink.isEmpty() ||
                 !Patterns.EMAIL_ADDRESS.matcher(emailAddressText).matches() ||
@@ -70,7 +70,7 @@ class RegisterFragment : Fragment() {
                 Log.i(
                     "REG_INFO",
                     "Dear ${fullName?.text.toString()} with email ${emailAddress?.text.toString()} " +
-                            "and url ${portfolioUrl?.text.toString()}"
+                            "url ${portfolioUrl?.text.toString()}, stack $devStack and interested in $devInterest roles."
                 )
             }
         }
