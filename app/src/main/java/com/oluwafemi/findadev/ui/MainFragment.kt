@@ -7,12 +7,18 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.oluwafemi.findadev.R
 import com.oluwafemi.findadev.adapter.DevListAdapter
 import com.oluwafemi.findadev.databinding.FragmentMainBinding
+import com.oluwafemi.findadev.viewmodels.MainFragmentViewModel
 
 
 class MainFragment : Fragment() {
+
+    private val viewModel by lazy {
+        ViewModelProvider(this).get(MainFragmentViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +31,8 @@ class MainFragment : Fragment() {
     ): View? {
         val binding: FragmentMainBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
 
         binding.devListRecyclerView.adapter = DevListAdapter()
 

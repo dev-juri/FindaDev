@@ -12,12 +12,17 @@ import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.oluwafemi.findadev.R
 import com.oluwafemi.findadev.databinding.FragmentRegisterBinding
+import com.oluwafemi.findadev.viewmodels.RegisterFragmentViewModel
 
 class RegisterFragment : Fragment() {
 
+    private val viewModel by lazy {
+        ViewModelProvider(this).get(RegisterFragmentViewModel::class.java)
+    }
     private lateinit var binding: FragmentRegisterBinding
     private val techStacks = arrayListOf(
         "Front-end", "Back-end", "DevOps", "Mobile(Native)",

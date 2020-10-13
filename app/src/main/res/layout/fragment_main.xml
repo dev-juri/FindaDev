@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.oluwafemi.findadev.viewmodels.MainFragmentViewModel" />
     </data>
 
     <FrameLayout
