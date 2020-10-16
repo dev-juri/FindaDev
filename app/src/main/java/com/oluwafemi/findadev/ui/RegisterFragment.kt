@@ -9,14 +9,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.oluwafemi.findadev.R
 import com.oluwafemi.findadev.databinding.FragmentRegisterBinding
+import com.oluwafemi.findadev.model.Dev
 import com.oluwafemi.findadev.viewmodels.RegisterFragmentViewModel
+import com.oluwafemi.findadev.viewmodels.UploadStatus
 
 class RegisterFragment : Fragment() {
 
@@ -62,6 +66,7 @@ class RegisterFragment : Fragment() {
             val devStack = binding.selectStack.selectedItem.toString()
             val devInterest = binding.jobType.selectedItem.toString()
 
+            val devDetails = Dev(fullNameText, emailAddressText, urlLink, devStack, devInterest)
             if (fullNameText.isEmpty() || emailAddressText.isEmpty() || urlLink.isEmpty() ||
                 !Patterns.EMAIL_ADDRESS.matcher(emailAddressText).matches() ||
                 !Patterns.WEB_URL.matcher(urlLink).matches()
@@ -72,11 +77,14 @@ class RegisterFragment : Fragment() {
                     Snackbar.LENGTH_LONG
                 ).show()
             } else {
-                Log.i(
-                    "REG_INFO",
-                    "Dear ${fullName?.text.toString()} with email ${emailAddress?.text.toString()} " +
-                            "url ${portfolioUrl?.text.toString()}, stack $devStack and interested in $devInterest roles."
-                )
+                viewModel.addDev(devDetails)
+                viewModel.status.observe(viewLifecycleOwner, Observer {
+                    when(it){
+                        UploadStatus.LOADING -> Toast.makeText(context, "Failure: Please check your network and try again", Toast.LENGTH_LONG).show()
+                        UploadStatus.SUCCESS -> Toast.makeText(context, "Successfully Created User", Toast.LENGTH_LONG).show()
+                        else -> Toast.makeText(context, "Loading", Toast.LENGTH_LONG).show()
+                    }
+                })
             }
         }
 

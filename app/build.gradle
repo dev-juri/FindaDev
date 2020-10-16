@@ -20,6 +20,9 @@ android {
         dataBinding = true
     }
 
+    aaptOptions {
+        cruncherEnabled = false
+    }
     defaultConfig {
         applicationId "com.oluwafemi.findadev"
         minSdkVersion 16
