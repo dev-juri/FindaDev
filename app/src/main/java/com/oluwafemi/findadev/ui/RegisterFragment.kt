@@ -29,10 +29,10 @@ class RegisterFragment : Fragment() {
     }
     private lateinit var binding: FragmentRegisterBinding
     private val techStacks = arrayListOf(
-        "Front-end", "Back-end", "DevOps", "Mobile(Native)",
+        "Front-end", "Back-end", "DevOps", "Mobile(Native)", "Full Stack",
         "Mobile(Cross platform)", "UI/UX", "Data Science", "ML/DL"
     )
-    private val jobType = arrayListOf("Full-Time", "Remote", "Contract")
+    private val jobType = arrayListOf("All", "Full-Time", "Remote", "Contract")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,12 +77,12 @@ class RegisterFragment : Fragment() {
                     Snackbar.LENGTH_LONG
                 ).show()
             } else {
-                viewModel.addDev(devDetails)
+                viewModel.checkUser(devDetails, emailAddressText)
                 viewModel.status.observe(viewLifecycleOwner, Observer {
                     when(it){
-                        UploadStatus.LOADING -> Toast.makeText(context, "Failure: Please check your network and try again", Toast.LENGTH_LONG).show()
                         UploadStatus.SUCCESS -> Toast.makeText(context, "Successfully Created User", Toast.LENGTH_LONG).show()
-                        else -> Toast.makeText(context, "Loading", Toast.LENGTH_LONG).show()
+                        UploadStatus.USER_EXISTS -> Toast.makeText(context, "User with email $emailAddressText already exists", Toast.LENGTH_LONG).show()
+                        else -> Toast.makeText(context, "Failure: Please check your network and try again", Toast.LENGTH_LONG).show()
                     }
                 })
             }

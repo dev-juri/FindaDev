@@ -13,7 +13,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 
 enum class UploadStatus {
-    LOADING, SUCCESS, FAILURE
+    SUCCESS, FAILURE, USER_EXISTS
 }
 
 class RegisterFragmentViewModel(application: Application) : AndroidViewModel(application) {
@@ -29,19 +29,31 @@ class RegisterFragmentViewModel(application: Application) : AndroidViewModel(app
         firestoreInstance = FirebaseFirestore.getInstance()
     }
 
-    fun addDev(dev: Dev) {
+    fun addDev(dev: Dev, email: String) {
         viewModelScope.launch {
-            val firestoreCollection = firestoreInstance.collection("devs")
+            val firestoreCollection = firestoreInstance.collection("devs").document(email)
+            Log.i("FireStoreLog", firestoreCollection.id)
             try {
-                _status.value = UploadStatus.LOADING
-                firestoreCollection.add(dev)
-                    .addOnCompleteListener {_status.value = UploadStatus.SUCCESS}
-                    .addOnFailureListener {_status.value = UploadStatus.FAILURE}
+                firestoreCollection.set(dev)
+                    .addOnCompleteListener { _status.value = UploadStatus.SUCCESS }
+                    .addOnFailureListener { _status.value = UploadStatus.FAILURE }
             } catch (e: Exception) {
                 _status.value = UploadStatus.FAILURE
                 Log.i("FireStoreLog", e.toString())
             }
         }
+    }
+
+    fun checkUser(dev: Dev, email: String) {
+        val firestoreCollection = firestoreInstance.collection("devs").document(email)
+
+        firestoreCollection.get()
+            .addOnSuccessListener {
+                _status.value = UploadStatus.USER_EXISTS
+            }
+            .addOnFailureListener {
+                addDev(dev, email)
+            }
     }
 
     override fun onCleared() {
