@@ -49,10 +49,14 @@ class RegisterFragmentViewModel(application: Application) : AndroidViewModel(app
 
         firestoreCollection.get()
             .addOnSuccessListener {
-                _status.value = UploadStatus.USER_EXISTS
+                if (it.exists() && it != null) {
+                    _status.value = UploadStatus.USER_EXISTS
+                } else {
+                    addDev(dev, email)
+                }
             }
             .addOnFailureListener {
-                addDev(dev, email)
+                _status.value = UploadStatus.FAILURE
             }
     }
 
