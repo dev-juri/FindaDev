@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/all_devs"
+        android:id="@+id/nav_graph_home"
         android:enabled="true"
         android:icon="@drawable/ic_explore"
         android:title="@string/explore_talents"/>
 
     <item
-        android:id="@+id/reg_self"
+        android:id="@+id/nav_graph_reg"
         android:enabled="true"
         android:icon="@drawable/ic_create"
         android:title="@string/register"/>

@@ -19,7 +19,7 @@ enum class UploadStatus {
 class RegisterFragmentViewModel(application: Application) : AndroidViewModel(application) {
     private val viewModelJob = SupervisorJob()
     private val viewModelScope = CoroutineScope(viewModelJob + Dispatchers.Main)
-    private lateinit var firestoreInstance: FirebaseFirestore
+    private var firestoreInstance: FirebaseFirestore
 
     private val _status = MutableLiveData<UploadStatus>()
     val status: LiveData<UploadStatus>

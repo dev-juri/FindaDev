@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 class MainFragmentViewModel(application: Application) : AndroidViewModel(application) {
     private val viewModelJob = SupervisorJob()
     private val viewModelScope = CoroutineScope(viewModelJob + Dispatchers.Main)
-    private lateinit var firestoreInstance: FirebaseFirestore
+    private var firestoreInstance: FirebaseFirestore
     private var _devList = MutableLiveData<ArrayList<Dev>>()
     val devList: LiveData<ArrayList<Dev>>
         get() = _devList
