@@ -20,10 +20,6 @@ class MainFragment : Fragment() {
         ViewModelProvider(this).get(MainFragmentViewModel::class.java)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.meet_dev)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

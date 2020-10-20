@@ -35,10 +35,6 @@ class RegisterFragment : Fragment() {
     private val jobType = arrayListOf("All", "Full-Time", "Remote", "Contract")
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.dev_reg)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
