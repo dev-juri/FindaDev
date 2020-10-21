@@ -7,7 +7,10 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.oluwafemi.findadev.R
 import com.oluwafemi.findadev.adapter.DevListAdapter
 import com.oluwafemi.findadev.databinding.FragmentMainBinding
@@ -30,7 +33,16 @@ class MainFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        binding.devListRecyclerView.adapter = DevListAdapter()
+        binding.devListRecyclerView.adapter = DevListAdapter(DevListAdapter.OnClickListener {
+            viewModel.displayPropertyDetails(it)
+        })
+        viewModel.navigateToSelectedProperty.observe(viewLifecycleOwner, Observer {
+            if (null != it) {
+                this.findNavController().navigate(R.id.show_detail)
+                viewModel.displayPropertyDetailsCompleted()
+            }
+        })
+
 
         return binding.root
     }

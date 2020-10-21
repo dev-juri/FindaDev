@@ -5,6 +5,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.util.Patterns
+import android.view.ContextMenu
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.oluwafemi.findadev.R
 import com.oluwafemi.findadev.databinding.FragmentRegisterBinding
@@ -33,7 +35,6 @@ class RegisterFragment : Fragment() {
         "Mobile(Cross platform)", "UI/UX", "Data Science", "ML/DL"
     )
     private val jobType = arrayListOf("All", "Full-Time", "Remote", "Contract")
-
 
 
     override fun onCreateView(

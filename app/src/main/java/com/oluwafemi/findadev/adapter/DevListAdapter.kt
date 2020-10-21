@@ -11,7 +11,8 @@ import com.oluwafemi.findadev.R
 import com.oluwafemi.findadev.databinding.DevListBinding
 import com.oluwafemi.findadev.model.Dev
 
-class DevListAdapter : ListAdapter<Dev, DevListAdapter.DevViewHolder>(DiffCallback) {
+class DevListAdapter(private val onClickListener: OnClickListener) :
+    ListAdapter<Dev, DevListAdapter.DevViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DevViewHolder {
         val withBinding: DevListBinding = DataBindingUtil.inflate(
@@ -25,6 +26,9 @@ class DevListAdapter : ListAdapter<Dev, DevListAdapter.DevViewHolder>(DiffCallba
 
     override fun onBindViewHolder(holder: DevViewHolder, position: Int) {
         val eachDev = getItem(position)
+        holder.itemView.setOnClickListener {
+            onClickListener.onClick(eachDev)
+        }
         holder.bind(eachDev)
     }
 
@@ -52,4 +56,7 @@ class DevListAdapter : ListAdapter<Dev, DevListAdapter.DevViewHolder>(DiffCallba
         }
     }
 
+    class OnClickListener(val clickListener: (dev: Dev) -> Unit) {
+        fun onClick(dev: Dev) = clickListener(dev)
+    }
 }

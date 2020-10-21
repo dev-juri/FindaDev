@@ -22,6 +22,10 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
     val status: LiveData<UploadStatus>
         get() = _status
 
+    private val _navigateToSelectedProperty = MutableLiveData<Dev>()
+    val navigateToSelectedProperty : LiveData<Dev>
+        get() = _navigateToSelectedProperty
+
     init {
         firestoreInstance = FirebaseFirestore.getInstance()
         getAllDevs()
@@ -52,5 +56,11 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
                 }
             }
         }
+    }
+    fun displayPropertyDetails(dev: Dev){
+        _navigateToSelectedProperty.value = dev
+    }
+    fun displayPropertyDetailsCompleted(){
+        _navigateToSelectedProperty.value = null
     }
 }

@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph_home"
-    android:label="@string/explore_talents"
     app:startDestination="@id/mainFragment">
 
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.oluwafemi.findadev.ui.MainFragment"
-        android:label="@string/explore_talents">
+        android:label="@string/explore_talents"
+        tools:layout="@layout/fragment_main">
         <action
-            android:id="@+id/action_mainFragment_to_detailsFragment"
+            android:id="@+id/show_detail"
             app:destination="@id/detailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
         android:name="com.oluwafemi.findadev.ui.DetailsFragment"
-        android:label="DetailsFragment" />
+        android:label="DetailsFragment"
+        tools:layout="@layout/fragment_details">
+        <argument
+            android:name="selectedProperty"
+            app:argType="com.oluwafemi.findadev.model.Dev"/>
+    </fragment>
 </navigation>

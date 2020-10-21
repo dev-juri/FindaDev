@@ -8,6 +8,7 @@ import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.oluwafemi.findadev.R
 import com.oluwafemi.findadev.databinding.FragmentDetailsBinding
 
@@ -20,7 +21,17 @@ class DetailsFragment : Fragment() {
             title = getString(R.string.dev_details)
             setDisplayHomeAsUpEnabled(true)
         }
+        (activity as AppCompatActivity).findViewById<BottomNavigationView>(R.id.bottom_navigation).visibility = View.GONE
+    }
 
+    override fun onStop() {
+        super.onStop()
+        (activity as AppCompatActivity).findViewById<BottomNavigationView>(R.id.bottom_navigation).visibility = View.VISIBLE
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        (activity as AppCompatActivity).findViewById<BottomNavigationView>(R.id.bottom_navigation).visibility = View.VISIBLE
     }
 
     override fun onCreateView(

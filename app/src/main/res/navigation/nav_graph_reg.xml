@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph_reg"
-    android:label="@string/register"
     app:startDestination="@id/registerFragment">
 
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.oluwafemi.findadev.ui.RegisterFragment"
-        android:label="@string/register">
+        android:label="@string/register"
+        tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_registerFragment_to_nav_graph_home"
             app:destination="@id/nav_graph_home" />
