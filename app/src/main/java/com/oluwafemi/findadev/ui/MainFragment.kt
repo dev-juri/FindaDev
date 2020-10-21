@@ -38,7 +38,7 @@ class MainFragment : Fragment() {
         })
         viewModel.navigateToSelectedProperty.observe(viewLifecycleOwner, Observer {
             if (null != it) {
-                this.findNavController().navigate(R.id.show_detail)
+                this.findNavController().navigate(MainFragmentDirections.showDetail(it))
                 viewModel.displayPropertyDetailsCompleted()
             }
         })

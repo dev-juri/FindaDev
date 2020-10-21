@@ -16,4 +16,5 @@
     <string name="dev_reg">Register</string>
     <string name="meet_dev">Explore Talents</string>
     <string name="validation_msg">Error validating your input, please verify</string>
+    <string name="email_subject">Will you be interested to work at/with [COMPANY/TEAM NAME]</string>
 </resources>
