@@ -16,6 +16,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.oluwafemi.findadev.R
@@ -77,7 +78,10 @@ class RegisterFragment : Fragment() {
                 viewModel.checkUser(devDetails, emailAddressText)
                 viewModel.status.observe(viewLifecycleOwner, Observer {
                     when(it){
-                        UploadStatus.SUCCESS -> Toast.makeText(context, "Successfully Created User", Toast.LENGTH_LONG).show()
+                        UploadStatus.SUCCESS -> {
+                            Toast.makeText(context, "Successfully Created User", Toast.LENGTH_LONG).show()
+                            this.findNavController().navigate(R.id.action_registerFragment_to_nav_graph_home)
+                        }
                         UploadStatus.USER_EXISTS -> Toast.makeText(context, "User with email $emailAddressText already exists", Toast.LENGTH_LONG).show()
                         else -> Toast.makeText(context, "Failure: Please check your network and try again", Toast.LENGTH_LONG).show()
                     }
