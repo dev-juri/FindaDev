@@ -31,10 +31,13 @@ class RegisterFragment : Fragment() {
         ViewModelProvider(this).get(RegisterFragmentViewModel::class.java)
     }
     private lateinit var binding: FragmentRegisterBinding
-    private val techStacks = arrayListOf(
-        "Front-end", "Back-end", "DevOps", "Mobile(Native)", "Full Stack",
-        "Mobile(Cross platform)", "UI/UX", "Data Science", "ML/DL"
-    )
+
+    companion object{
+        val techStacks = arrayListOf(
+            "Front-end", "Back-end", "DevOps", "Mobile(Native)", "Full Stack",
+            "Mobile(Cross platform)", "UI/UX", "Data Science", "ML/DL"
+        )
+    }
     private val jobType = arrayListOf("All", "Full-Time", "Remote", "Contract")
 
 

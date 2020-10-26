@@ -4,13 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.chip.Chip
 import com.oluwafemi.findadev.R
 import com.oluwafemi.findadev.adapter.DevListAdapter
 import com.oluwafemi.findadev.databinding.FragmentMainBinding
@@ -23,7 +22,6 @@ class MainFragment : Fragment() {
         ViewModelProvider(this).get(MainFragmentViewModel::class.java)
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,6 +30,22 @@ class MainFragment : Fragment() {
             DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+
+        val chipGroup = binding.sortByStack
+        val inflator = LayoutInflater.from(chipGroup.context)
+
+        val children = RegisterFragment.techStacks.map { stack ->
+            val chip = inflator.inflate(R.layout.sort_stack, chipGroup, false) as Chip
+            chip.text = stack
+            chip.tag = stack
+            chip.setOnCheckedChangeListener { button, isChecked ->
+                //Check checked state
+            }
+            chip
+        }
+        for (chip in children) {
+            chipGroup.addView(chip)
+        }
 
         binding.devListRecyclerView.adapter = DevListAdapter(DevListAdapter.OnClickListener {
             viewModel.displayPropertyDetails(it)
