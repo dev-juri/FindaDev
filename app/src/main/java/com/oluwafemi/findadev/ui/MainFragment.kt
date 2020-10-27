@@ -14,6 +14,7 @@ import com.oluwafemi.findadev.R
 import com.oluwafemi.findadev.adapter.DevListAdapter
 import com.oluwafemi.findadev.databinding.FragmentMainBinding
 import com.oluwafemi.findadev.viewmodels.MainFragmentViewModel
+import com.oluwafemi.findadev.viewmodels.UploadStatus
 
 
 class MainFragment : Fragment() {
@@ -40,6 +41,7 @@ class MainFragment : Fragment() {
             chip.tag = stack
             chip.setOnCheckedChangeListener { button, isChecked ->
                 //Check checked state
+                viewModel.onFilterChanged(button.tag as String, isChecked)
             }
             chip
         }
@@ -47,6 +49,18 @@ class MainFragment : Fragment() {
             chipGroup.addView(chip)
         }
 
+        viewModel.status.observe(viewLifecycleOwner, Observer {
+            when (it) {
+                UploadStatus.NO_RECORD -> {
+                    binding.devListRecyclerView.visibility = View.GONE
+                    binding.statusText.visibility = View.VISIBLE
+                }
+                else -> {
+                    binding.devListRecyclerView.visibility = View.VISIBLE
+                    binding.statusText.visibility = View.GONE
+                }
+            }
+        })
         binding.devListRecyclerView.adapter = DevListAdapter(DevListAdapter.OnClickListener {
             viewModel.displayPropertyDetails(it)
         })

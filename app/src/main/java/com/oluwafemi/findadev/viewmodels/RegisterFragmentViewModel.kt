@@ -13,7 +13,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 
 enum class UploadStatus {
-    SUCCESS, FAILURE, USER_EXISTS
+    SUCCESS, FAILURE, USER_EXISTS, NO_RECORD
 }
 
 class RegisterFragmentViewModel(application: Application) : AndroidViewModel(application) {
