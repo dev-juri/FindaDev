@@ -55,6 +55,10 @@ class MainFragment : Fragment() {
                     binding.devListRecyclerView.visibility = View.GONE
                     binding.statusText.visibility = View.VISIBLE
                 }
+                UploadStatus.SUCCESS -> {
+                    binding.devListRecyclerView.visibility = View.VISIBLE
+                    binding.statusText.visibility = View.GONE
+                }
                 else -> {
                     binding.devListRecyclerView.visibility = View.VISIBLE
                     binding.statusText.visibility = View.GONE

@@ -46,7 +46,6 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
                     return@addSnapshotListener
                 }
                 if (value != null) {
-                    _status.value = UploadStatus.SUCCESS
                     val allUsers = ArrayList<Dev>()
                     val documents = value.documents
                     documents.forEach {
@@ -56,8 +55,6 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
                         }
                     }
                     _devList.value = allUsers
-                } else {
-                    _status.value = UploadStatus.NO_RECORD
                 }
             }
         }
@@ -73,8 +70,13 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
 
     fun onFilterChanged(filter: String, isChecked: Boolean) {
         if (this.filter.update(filter, isChecked)) {
-            onQueryChanged()
-            Log.i("FirestoreLog", "$filter $isChecked")
+            if (!isChecked) {
+                _status.value = null
+                getAllDevs()
+            } else {
+                onQueryChanged()
+                Log.i("FirestoreLog", "$filter $isChecked")
+            }
         }
     }
 
@@ -87,7 +89,6 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
                     val allUsers = ArrayList<Dev>()
                     if (it != null && !it.isEmpty) {
                         val documents = it.documents
-                        _status.value = UploadStatus.SUCCESS
                         documents.forEach {
                             val devFromDB = it.toObject(Dev::class.java)
                             if (devFromDB != null) {
@@ -104,10 +105,7 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
                         _status.value = UploadStatus.NO_RECORD
                     }
                 }
-                .addOnFailureListener {
-                    _status.value = UploadStatus.NO_RECORD
-                    Log.i("FirestoreLog", "${filter.currentValue} : failed")
-                }
+                .addOnFailureListener { _status.value = UploadStatus.NO_RECORD }
         }
     }
 
@@ -121,7 +119,6 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
                 return true
             } else if (currentValue == changedFilter) {
                 currentValue = null
-                getAllDevs()
                 return true
             }
             return false
