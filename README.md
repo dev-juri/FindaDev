@@ -9,6 +9,8 @@ It was built using MVVM, Firebase Firestore and Jetpack libraries including:
 - Coroutines
 - Recyclerview
 
+To download the app, click [here](https://github.com/dev-juri/FindaDev/raw/develop/output/app-debug.apk)
+
 ## Screenshots of the app
 <img src="https://github.com/dev-juri/FindaDev/blob/develop/screenshots/icon.png" alt="Icon" height="300px"/> <img src="https://github.com/dev-juri/FindaDev/blob/develop/screenshots/main_fragment.png" alt="Main Fragment" height="300px"/> <img src="https://github.com/dev-juri/FindaDev/blob/develop/screenshots/main_fragment_active_chip.png" alt="Main Fragment with active chip" height="300px"/><br/>
 
