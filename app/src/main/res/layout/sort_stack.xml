@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     style="@style/Widget.MaterialComponents.Chip.Choice"
     app:checkedIconVisible="true"
-    app:checkedIconTint="@color/primaryLightColor"
+    app:checkedIconTint="@color/primaryTextColor"
     android:textColor="@color/chip_text_color"
     tools:checked="true"
     app:chipBackgroundColor="@color/selected_highlight" />

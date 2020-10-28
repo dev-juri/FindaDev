@@ -7,15 +7,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
 import com.oluwafemi.findadev.model.Dev
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.launch
 
 class MainFragmentViewModel(application: Application) : AndroidViewModel(application) {
     private var filter = FilterHolder()
-    private val viewModelJob = SupervisorJob()
-    private val viewModelScope = CoroutineScope(viewModelJob + Dispatchers.Main)
     private var firestoreInstance: FirebaseFirestore
     private var _devList = MutableLiveData<ArrayList<Dev>>()
     val devList: LiveData<ArrayList<Dev>>
@@ -33,29 +27,23 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
         getAllDevs()
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.cancel()
-    }
 
     fun getAllDevs() {
-        viewModelScope.launch {
-            firestoreInstance.collection("devs").addSnapshotListener { value, error ->
-                if (error != null) {
-                    _status.value = UploadStatus.FAILURE
-                    return@addSnapshotListener
-                }
-                if (value != null) {
-                    val allUsers = ArrayList<Dev>()
-                    val documents = value.documents
-                    documents.forEach {
-                        val devFromDB = it.toObject(Dev::class.java)
-                        if (devFromDB != null) {
-                            allUsers.add(devFromDB)
-                        }
+        firestoreInstance.collection("devs").addSnapshotListener { value, error ->
+            if (error != null) {
+                _status.value = UploadStatus.FAILURE
+                return@addSnapshotListener
+            }
+            if (value != null) {
+                val allUsers = ArrayList<Dev>()
+                val documents = value.documents
+                documents.forEach {
+                    val devFromDB = it.toObject(Dev::class.java)
+                    if (devFromDB != null) {
+                        allUsers.add(devFromDB)
                     }
-                    _devList.value = allUsers
                 }
+                _devList.value = allUsers
             }
         }
     }
@@ -81,32 +69,30 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
     }
 
     private fun onQueryChanged() {
-        viewModelScope.launch {
-            firestoreInstance.collection("devs")
-                .whereEqualTo("devStack", filter.currentValue)
-                .get()
-                .addOnSuccessListener { it ->
-                    val allUsers = ArrayList<Dev>()
-                    if (it != null && !it.isEmpty) {
-                        val documents = it.documents
-                        documents.forEach {
-                            val devFromDB = it.toObject(Dev::class.java)
-                            if (devFromDB != null) {
-                                allUsers.add(devFromDB)
-                                Log.i(
-                                    "FirestoreLog",
-                                    "${filter.currentValue} : $devFromDB"
-                                )
-                            }
-                            _devList.value = allUsers
+        firestoreInstance.collection("devs")
+            .whereEqualTo("devStack", filter.currentValue)
+            .get()
+            .addOnSuccessListener { it ->
+                val allUsers = ArrayList<Dev>()
+                if (it != null && !it.isEmpty) {
+                    val documents = it.documents
+                    documents.forEach {
+                        val devFromDB = it.toObject(Dev::class.java)
+                        if (devFromDB != null) {
+                            allUsers.add(devFromDB)
+                            Log.i(
+                                "FirestoreLog",
+                                "${filter.currentValue} : $devFromDB"
+                            )
                         }
-                        _status.value = UploadStatus.SUCCESS
-                    } else {
-                        _status.value = UploadStatus.NO_RECORD
+                        _devList.value = allUsers
                     }
+                    _status.value = UploadStatus.SUCCESS
+                } else {
+                    _status.value = UploadStatus.NO_RECORD
                 }
-                .addOnFailureListener { _status.value = UploadStatus.NO_RECORD }
-        }
+            }
+            .addOnFailureListener { _status.value = UploadStatus.NO_RECORD }
     }
 
     inner class FilterHolder {
