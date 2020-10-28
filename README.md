@@ -6,7 +6,6 @@ An app that helps you find developers/designers to team up with or hire. You can
 It was built using MVVM, Firebase Firestore and Jetpack libraries including:
 - DataBinding
 - LiveData
-- Coroutines
 - Recyclerview
 
 To download the app, click [here](https://github.com/dev-juri/FindaDev/raw/develop/output/findadev.apk)
