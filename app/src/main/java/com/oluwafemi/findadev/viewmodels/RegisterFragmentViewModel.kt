@@ -23,7 +23,7 @@ class RegisterFragmentViewModel(application: Application) : AndroidViewModel(app
         firestoreInstance = FirebaseFirestore.getInstance()
     }
 
-    fun addDev(dev: Dev, email: String) {
+    private fun addDev(dev: Dev, email: String) {
         val firestoreCollection = firestoreInstance.collection("devs").document(email)
         Log.i("FireStoreLog", firestoreCollection.id)
         try {
@@ -34,6 +34,10 @@ class RegisterFragmentViewModel(application: Application) : AndroidViewModel(app
             _status.value = UploadStatus.FAILURE
             Log.i("FireStoreLog", e.toString())
         }
+    }
+
+    fun clearStatus() {
+        _status.value = null
     }
 
 

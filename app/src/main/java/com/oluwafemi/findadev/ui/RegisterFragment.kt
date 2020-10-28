@@ -3,9 +3,7 @@ package com.oluwafemi.findadev.ui
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.util.Patterns
-import android.view.ContextMenu
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,12 +30,13 @@ class RegisterFragment : Fragment() {
     }
     private lateinit var binding: FragmentRegisterBinding
 
-    companion object{
+    companion object {
         val techStacks = arrayListOf(
             "Front-end", "Back-end", "DevOps", "Mobile(Native)", "Full Stack",
             "Mobile(Cross platform)", "UI/UX", "Data Science", "ML/DL"
         )
     }
+
     private val jobType = arrayListOf("All", "Full-Time", "Remote", "Contract")
 
 
@@ -73,20 +72,45 @@ class RegisterFragment : Fragment() {
                 !Patterns.WEB_URL.matcher(urlLink).matches()
             ) {
                 Snackbar.make(
-                    binding.registerBtn,
+                    binding.titleText,
                     getString(R.string.validation_msg),
                     Snackbar.LENGTH_LONG
                 ).show()
             } else {
                 viewModel.checkUser(devDetails, emailAddressText)
                 viewModel.status.observe(viewLifecycleOwner, Observer {
-                    when(it){
-                        UploadStatus.SUCCESS -> {
-                            Toast.makeText(context, "Successfully Created User", Toast.LENGTH_LONG).show()
-                            this.findNavController().navigate(R.id.action_registerFragment_to_nav_graph_home)
+                    if (it != null) {
+                        when (it) {
+                            UploadStatus.SUCCESS -> {
+                                Toast.makeText(
+                                    context,
+                                    "Successfully Created User",
+                                    Toast.LENGTH_SHORT
+                                )
+                                    .show()
+                                this.findNavController()
+                                    .navigate(R.id.action_registerFragment_to_nav_graph_home)
+                                (activity as AppCompatActivity).findViewById<BottomNavigationView>(R.id.bottom_navigation).selectedItemId =
+                                    R.id.nav_graph_home
+                                viewModel.clearStatus()
+                            }
+                            UploadStatus.USER_EXISTS -> {
+                                Toast.makeText(
+                                    context,
+                                    "User with email $emailAddressText already exists",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                viewModel.clearStatus()
+                            }
+                            else -> {
+                                Toast.makeText(
+                                    context,
+                                    "Failure: Please check your network and try again",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                                viewModel.clearStatus()
+                            }
                         }
-                        UploadStatus.USER_EXISTS -> Toast.makeText(context, "User with email $emailAddressText already exists", Toast.LENGTH_LONG).show()
-                        else -> Toast.makeText(context, "Failure: Please check your network and try again", Toast.LENGTH_LONG).show()
                     }
                 })
             }
